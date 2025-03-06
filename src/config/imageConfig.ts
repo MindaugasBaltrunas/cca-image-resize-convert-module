@@ -12,10 +12,11 @@ export const PRESERVABLE_FORMATS = ['image/gif', 'image/svg+xml'];
 
 export const IMAGE_SIZES: Record<ImageSize, ImageDimensions> = {
   [ImageSize.ORIGINAL]: { width: 0, height: 0 },
-  [ImageSize.THUMBNAIL]: { width: 150, height: 150 },
-  [ImageSize.SMALL]: { width: 320, height: 320 },
-  [ImageSize.MEDIUM]: { width: 640, height: 640 },
-  [ImageSize.LARGE]: { width: 1280, height: 1280 }
+  [ImageSize.THUMB]: { width: 100, height: 100 },
+  [ImageSize.SM]: { width: 300, height: 300 },
+  [ImageSize.MD]: { width: 600, height: 600 },
+  [ImageSize.LG]: { width: 900, height: 900 },
+  [ImageSize.XL]: { width: 1200, height: 1200 }
 };
 
 export const IMAGE_QUALITY = {
