@@ -1,6 +1,6 @@
 {
   "name": "cca-image-resize-convert-module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "convert and resize image",
   "main": "dist/index.js",
   "type": "module",
