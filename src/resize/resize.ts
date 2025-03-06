@@ -1,18 +1,18 @@
 import sharp from 'sharp';
 import { ImageSize, ImageDimensions } from '../types/image';
-
-const IMAGE_DIMENSIONS: Record<ImageSize, ImageDimensions> = {
-  [ImageSize.ORIGINAL]: { width: 0, height: 0 }, 
-  [ImageSize.THUMB]: { width: 100, height: 100 },
-  [ImageSize.SM]: { width: 300, height: 300 },
-  [ImageSize.MD]: { width: 600, height: 600 },
-  [ImageSize.LG]: { width: 900, height: 900 },
-  [ImageSize.XL]: { width: 1200, height: 1200 },
-};
+import { IMAGE_SIZES } from '../config/imageConfig';
+import { validateImageType } from '../utils/imageUtils';
 
 export async function resizeImageAllSizes(
   file: Express.Multer.File
 ): Promise<Record<ImageSize, Buffer>> {
+  const buffer = file.buffer;
+  const mimeType = file.mimetype;
+  
+  if (!validateImageType(mimeType)) {
+    throw new Error(`Unsupported image type: ${mimeType}`);
+  }
+  
   const sizes: ImageSize[] = [
     ImageSize.ORIGINAL,
     ImageSize.THUMB,
@@ -28,15 +28,15 @@ export async function resizeImageAllSizes(
         return { size, buffer: file.buffer };
       }
 
-      const { width, height } = IMAGE_DIMENSIONS[size];
-      const buffer = await sharp(file.buffer)
-        .resize(width, height, {
+      const dimensions = IMAGE_SIZES[size];
+      const resizedBuffer = await sharp(file.buffer)
+        .resize(dimensions.width, dimensions.height, {
           fit: 'inside',
           withoutEnlargement: true,
         })
         .toBuffer();
 
-      return { size, buffer };
+      return { size, buffer: resizedBuffer };
     })
   );
 

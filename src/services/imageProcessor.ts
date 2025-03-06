@@ -12,6 +12,7 @@ import {
 } from '../utils/imageResizeUtils';
 
 class ImageProcessor {
+
   validateImageType(mimeType: string): boolean {
     return validateImageType(mimeType);
   }

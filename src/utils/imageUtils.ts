@@ -8,6 +8,7 @@ export function getOutputFormat(mimeType: string): string {
   if (PRESERVABLE_FORMATS.includes(mimeType)) {
     return mimeType.split('/')[1];
   }
+  
   return 'webp';
 }
 
@@ -15,11 +16,8 @@ export function getContentType(mimeType: string, outputFormat: string): string {
   if (PRESERVABLE_FORMATS.includes(mimeType)) {
     return mimeType;
   }
+  
   return `image/${outputFormat}`;
-}
-
-export function isAnimatedFormat(mimeType: string): boolean {
-  return mimeType === 'image/gif';
 }
 
 export function isVectorFormat(mimeType: string): boolean {
@@ -27,5 +25,5 @@ export function isVectorFormat(mimeType: string): boolean {
 }
 
 export function detectImageType(buffer: Buffer): 'PHOTO' | 'GRAPHIC' | 'ICON' | 'TEXT' {
-  return 'PHOTO';
+  return 'PHOTO'; 
 }
